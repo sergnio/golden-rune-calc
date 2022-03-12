@@ -1,5 +1,6 @@
 import "./styles.css";
 import { useReducer, useState } from "preact/compat";
+import Rune from "../assets/lordrune.png";
 
 export default function App() {
   const [total, dispatch] = useReducer((state, action) => {
@@ -60,18 +61,19 @@ export default function App() {
   };
 
   return (
-    <div className="App">
+    <div id="calc" className="App">
+      <img src={Rune} className="runeimage" />
       {Object.keys(runes).map((key) => (
         <div className="flex spaced">
           Golden Rune ({key})
           <button onClick={increment(runes[key], key)}>+</button>
           <button onClick={decrease(runes[key], key)}>-</button>
           {runeCount[key] > 0 && (
-            <span className="fixed">total: {runeCount[key]}</span>
+            <span className="fixed nomargin">total: {runeCount[key]}</span>
           )}
         </div>
       ))}
-      <div>total: {total}</div>
+      <h2>total: {total}</h2>
       <button onClick={reset}>reset</button>
     </div>
   );

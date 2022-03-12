@@ -4,12 +4,13 @@ body {
   width: 100%;
   padding: 0;
   margin: 0;
-  background: #fafafa;
+  background-color: #342550;
   font-family: 'Helvetica Neue', arial, sans-serif;
   font-weight: 400;
   color: #444;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
 }
 
 * {
@@ -19,10 +20,8 @@ body {
 #app {
   height: 100%;
   text-align: center;
-  background-color: #673ab8;
   color: #fff;
   font-size: 1.5em;
-  padding-top: 100px;
 }
 
 .link {

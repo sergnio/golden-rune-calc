@@ -1,5 +1,25 @@
 .App {
-    font-family: sans-serif;
-    text-align: center;
+  font-family: sans-serif;
+  text-align: center;
 }
 
+*{
+  margin: 0;
+}
+
+.nomargin {
+  margin: 0 !important;
+
+}
+
+.runeimage {
+  height: 4em;
+}
+
+.fixed {
+  position: absolute;
+}
+
+.spaced > * {
+  margin: 0.5em;
+}
