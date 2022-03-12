@@ -7,9 +7,11 @@ export default function App() {
     if (action === "reset") {
       return 0;
     }
+    // @ts-ignore
     if (state <= 0 && action <= 0) {
       return 0;
     }
+    // @ts-ignore
     return state + action;
   }, 0);
 
@@ -32,23 +34,30 @@ export default function App() {
 
   console.log({ runeCount });
 
+  // @ts-ignore
   const increment = (souls, key) => () => {
     console.log({ key });
     dispatch(souls);
+    // @ts-ignore
     if (runeCount[key]) {
+      // @ts-ignore
       setCount({ ...runeCount, [key]: runeCount[key] + 1 });
     } else {
       setCount({ ...runeCount, [key]: 1 });
     }
   };
 
+  // @ts-ignore
   const decrease = (souls, key) => () => {
     if (!total) return;
 
     dispatch(-souls);
+    // @ts-ignore
     if (runeCount[key]) {
+      // @ts-ignore
       setCount({ ...runeCount, [key]: runeCount[key] - 1 });
     }
+    // @ts-ignore
     if (runeCount[key] <= 0) {
       const newCounts = { ...runeCount };
       setCount(newCounts);
@@ -65,10 +74,13 @@ export default function App() {
       <img src={Rune} className="runeimage" />
       {Object.keys(runes).map((key) => (
         <div className="flex spaced">
-          Golden Rune ({key})
+          Golden Rune ({key}){/*@ts-ignore*/}
           <button onClick={increment(runes[key], key)}>+</button>
+          {/*@ts-ignore*/}
           <button onClick={decrease(runes[key], key)}>-</button>
+          {/*@ts-ignore*/}
           {runeCount[key] > 0 && (
+            // @ts-ignore
             <span className="fixed nomargin">total: {runeCount[key]}</span>
           )}
         </div>
