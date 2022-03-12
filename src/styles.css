@@ -23,3 +23,15 @@
 .spaced > * {
   margin: 0.5em;
 }
+
+.bottom {
+  bottom: 1em;
+  position: fixed;
+}
+
+.bottom > a {
+  color: #f1a656;
+}
+.bottom > a:visited {
+  color: #b96710;
+}

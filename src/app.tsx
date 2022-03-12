@@ -87,6 +87,13 @@ export default function App() {
       ))}
       <h2>total: {total}</h2>
       <button onClick={reset}>reset</button>
+      <footer className={"bottom"}>
+        Contribute to the code{" "}
+        <a target="_blank" href="https://github.com/sergnio/golden-rune-calc">
+          here
+        </a>
+        !
+      </footer>
     </div>
   );
 }
