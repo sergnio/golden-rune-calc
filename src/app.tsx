@@ -32,11 +32,8 @@ export default function App() {
     12: 7500,
   };
 
-  console.log({ runeCount });
-
   // @ts-ignore
   const increment = (souls, key) => () => {
-    console.log({ key });
     dispatch(souls);
     // @ts-ignore
     if (runeCount[key]) {
@@ -63,7 +60,7 @@ export default function App() {
       setCount(newCounts);
     }
   };
-  // {runes[key]}
+
   const reset = () => {
     dispatch("reset");
     setCount({});
