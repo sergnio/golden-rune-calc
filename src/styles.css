@@ -3,13 +3,14 @@
   text-align: center;
 }
 
-*{
+* {
   margin: 0;
 }
 
+.flex {}
+
 .nomargin {
   margin: 0 !important;
-
 }
 
 .runeimage {
@@ -32,6 +33,7 @@
 .bottom > a {
   color: #f1a656;
 }
+
 .bottom > a:visited {
   color: #b96710;
 }

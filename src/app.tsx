@@ -66,7 +66,7 @@ export default function App() {
       <img src={Rune} className="runeimage" />
       {allRunes.map(({ id, label, soulsGiven }) => (
         <div className="flex spaced">
-          {label}
+          <span>{label}</span>
           <button onClick={increment(soulsGiven, id)}>+</button>
           <button disabled={!runeCount[id]} onClick={decrease(soulsGiven, id)}>
             -

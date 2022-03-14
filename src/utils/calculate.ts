@@ -1,7 +1,7 @@
 interface Props {
   currentCount: number;
   desiredAmount: number;
-  soulsOwned: Rune[]
+  soulsOwned: Rune[];
 }
 
 /**
@@ -9,5 +9,5 @@ interface Props {
  * @param currentCount
  */
 export const calculateHighestFirst = ({ currentCount }: Props): Rune[] => {
-  return [{label:}]
+  return [{ label: "" }];
 };
