@@ -9,6 +9,10 @@
 
 .flex {}
 
+.heldRunes {
+  width: 5em;
+}
+
 .nomargin {
   margin: 0 !important;
 }

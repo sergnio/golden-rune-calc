@@ -16,7 +16,7 @@ import { calculateHighestFirst } from "./calculate";
  */
 
 it("should output", () => {
-  calculateHighestFirst();
+  // calculateHighestFirst();
 });
 
 /*

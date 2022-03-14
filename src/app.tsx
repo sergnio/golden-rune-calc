@@ -17,6 +17,7 @@ export default function App() {
   }, 0);
 
   const [runeCount, setCount] = useState<{ [id: number]: number }>({});
+  const [heldRuneCount, setHeldRuneCount] = useState<number>(0);
   console.log("runeCount", runeCount);
 
   const runes = {
@@ -64,6 +65,16 @@ export default function App() {
   return (
     <div id="calc" className="App">
       <img src={Rune} className="runeimage" />
+      <label>
+        Number of currently held runes
+        <input
+          name="heldRunes"
+          type="number"
+          className="heldRunes"
+          onChange={}
+        />
+      </label>
+
       {allRunes.map(({ id, label, soulsGiven }) => (
         <div className="flex spaced">
           <span>{label}</span>
