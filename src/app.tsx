@@ -2,6 +2,7 @@ import "./styles.css";
 import { useReducer, useState } from "preact/compat";
 import Rune from "../assets/lordrune.png";
 import { allRunes } from "./constants/runes";
+import { disallowNonNumbers } from "./utils/inputHelpers";
 
 export default function App() {
   const [total, dispatch] = useReducer((state, action) => {
@@ -18,7 +19,7 @@ export default function App() {
 
   const [runeCount, setCount] = useState<{ [id: number]: number }>({});
   const [heldRuneCount, setHeldRuneCount] = useState<number>(0);
-  console.log("runeCount", runeCount);
+  const [targetRuneCount, setTargetRuneCount] = useState<number>(0);
 
   const increment = (souls: number, id: number) => () => {
     dispatch(souls);
@@ -49,27 +50,48 @@ export default function App() {
 
   return (
     <div id="calc" className="App">
-      <img src={Rune} className="runeimage" />
-      <label>
-        Number of currently held runes
-        <input
-          name="heldRunes"
-          type="number"
-          className="heldRunes"
-          onKeyDown={(event) =>
-            ["e", "E", "+", "-"].includes(event.key) && event.preventDefault()
-          }
-          onChange={(event) => {
-            // @ts-ignore
-            if (event?.target?.value) {
+      <img src={Rune} className="runeimage" alt="image of a golden rune" />
+      <div>
+        <label>
+          Number of currently held runes
+          <input
+            name="heldRunes"
+            type="number"
+            className="heldRunes"
+            onKeyDown={disallowNonNumbers}
+            onChange={(event) => {
               // @ts-ignore
-              setHeldRuneCount(event.target.value);
-            } else {
-              setHeldRuneCount(0);
-            }
-          }}
-        />
-      </label>
+              if (event?.target?.value) {
+                // @ts-ignore
+                setHeldRuneCount(event.target.value);
+              } else {
+                setHeldRuneCount(0);
+              }
+            }}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Desired Target # of Runes
+          <input
+            name="heldRunes"
+            type="number"
+            className="heldRunes"
+            onKeyDown={disallowNonNumbers}
+            onChange={(event) => {
+              // @ts-ignore
+              if (event?.target?.value) {
+                // @ts-ignore
+                setTargetRuneCount(event.target.value);
+              } else {
+                setTargetRuneCount(0);
+              }
+            }}
+          />
+        </label>
+      </div>
+
       {allRunes.map(({ id, label, soulsGiven }) => (
         <div className="flex spaced">
           <span>{label}</span>
@@ -84,7 +106,7 @@ export default function App() {
       ))}
       <h2>total: {total}</h2>
       <button onClick={reset}>reset</button>
-      <footer className={"bottom"}>
+      <footer className="bottom small-text">
         Contribute to the code{" "}
         <a target="_blank" href="https://github.com/sergnio/golden-rune-calc">
           here
