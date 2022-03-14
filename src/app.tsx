@@ -20,21 +20,6 @@ export default function App() {
   const [heldRuneCount, setHeldRuneCount] = useState<number>(0);
   console.log("runeCount", runeCount);
 
-  const runes = {
-    1: 200,
-    2: 400,
-    3: 800,
-    4: 1200,
-    5: 1600,
-    6: 2000,
-    7: 2500,
-    8: 3000,
-    9: 3800,
-    10: 5000,
-    11: 6200,
-    12: 7500,
-  };
-
   const increment = (souls: number, id: number) => () => {
     dispatch(souls);
     if (runeCount[id]) {
@@ -65,16 +50,26 @@ export default function App() {
   return (
     <div id="calc" className="App">
       <img src={Rune} className="runeimage" />
-      {/*<label>*/}
-      {/*  Number of currently held runes*/}
-      {/*  <input*/}
-      {/*    name="heldRunes"*/}
-      {/*    type="number"*/}
-      {/*    className="heldRunes"*/}
-      {/*    onChange={}*/}
-      {/*  />*/}
-      {/*</label>*/}
-
+      <label>
+        Number of currently held runes
+        <input
+          name="heldRunes"
+          type="number"
+          className="heldRunes"
+          onKeyDown={(event) =>
+            ["e", "E", "+", "-"].includes(event.key) && event.preventDefault()
+          }
+          onChange={(event) => {
+            // @ts-ignore
+            if (event?.target?.value) {
+              // @ts-ignore
+              setHeldRuneCount(event.target.value);
+            } else {
+              setHeldRuneCount(0);
+            }
+          }}
+        />
+      </label>
       {allRunes.map(({ id, label, soulsGiven }) => (
         <div className="flex spaced">
           <span>{label}</span>
