@@ -1,4 +1,5 @@
 type Rune = {
-    label: string
-    soulsGiven: number
-}
+  id: number;
+  label: string;
+  soulsGiven: number;
+};

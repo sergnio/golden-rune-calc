@@ -4,4 +4,10 @@ interface Props {
   soulsOwned: Rune[]
 }
 
-export const calculateHighestFirst = ({ currentCount }: Props) => {};
+/**
+ * Returns the amount of each rune you should consume
+ * @param currentCount
+ */
+export const calculateHighestFirst = ({ currentCount }: Props): Rune[] => {
+  return [{label:}]
+};
