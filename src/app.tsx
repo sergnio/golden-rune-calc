@@ -65,15 +65,15 @@ export default function App() {
   return (
     <div id="calc" className="App">
       <img src={Rune} className="runeimage" />
-      <label>
-        Number of currently held runes
-        <input
-          name="heldRunes"
-          type="number"
-          className="heldRunes"
-          onChange={}
-        />
-      </label>
+      {/*<label>*/}
+      {/*  Number of currently held runes*/}
+      {/*  <input*/}
+      {/*    name="heldRunes"*/}
+      {/*    type="number"*/}
+      {/*    className="heldRunes"*/}
+      {/*    onChange={}*/}
+      {/*  />*/}
+      {/*</label>*/}
 
       {allRunes.map(({ id, label, soulsGiven }) => (
         <div className="flex spaced">

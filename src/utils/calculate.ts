@@ -9,5 +9,5 @@ interface Props {
  * @param currentCount
  */
 export const calculateHighestFirst = ({ currentCount }: Props): Rune[] => {
-  // return [{ label: "" }];
+  return [];
 };
