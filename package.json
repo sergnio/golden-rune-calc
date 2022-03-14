@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "jest",
+    "test": "jest --watch",
     "prettier": "npx prettier --write .",
     "preview": "vite preview"
   },
