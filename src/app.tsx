@@ -1,6 +1,7 @@
 import "./styles.css";
 import { useReducer, useState } from "preact/compat";
 import Rune from "../assets/lordrune.png";
+import { allRunes } from "./constants/runes";
 
 export default function App() {
   const [total, dispatch] = useReducer((state, action) => {
@@ -15,7 +16,9 @@ export default function App() {
     return state + action;
   }, 0);
 
-  const [runeCount, setCount] = useState({});
+  const [runeCount, setCount] = useState<{ [id: number]: number }>({});
+  const [heldRuneCount, setHeldRuneCount] = useState<number>(0);
+  console.log("runeCount", runeCount);
 
   const runes = {
     1: 200,
@@ -32,38 +35,28 @@ export default function App() {
     12: 7500,
   };
 
-  console.log({ runeCount });
-
-  // @ts-ignore
-  const increment = (souls, key) => () => {
-    console.log({ key });
+  const increment = (souls: number, id: number) => () => {
     dispatch(souls);
-    // @ts-ignore
-    if (runeCount[key]) {
-      // @ts-ignore
-      setCount({ ...runeCount, [key]: runeCount[key] + 1 });
+    if (runeCount[id]) {
+      setCount({ ...runeCount, [id]: runeCount[id] + 1 });
     } else {
-      setCount({ ...runeCount, [key]: 1 });
+      setCount({ ...runeCount, [id]: 1 });
     }
   };
 
-  // @ts-ignore
-  const decrease = (souls, key) => () => {
+  const decrease = (souls: number, id: number) => () => {
     if (!total) return;
 
     dispatch(-souls);
-    // @ts-ignore
-    if (runeCount[key]) {
-      // @ts-ignore
-      setCount({ ...runeCount, [key]: runeCount[key] - 1 });
+    if (runeCount[id]) {
+      setCount({ ...runeCount, [id]: runeCount[id] - 1 });
     }
-    // @ts-ignore
-    if (runeCount[key] <= 0) {
+    if (runeCount[id] <= 0) {
       const newCounts = { ...runeCount };
       setCount(newCounts);
     }
   };
-  // {runes[key]}
+
   const reset = () => {
     dispatch("reset");
     setCount({});
@@ -72,16 +65,25 @@ export default function App() {
   return (
     <div id="calc" className="App">
       <img src={Rune} className="runeimage" />
-      {Object.keys(runes).map((key) => (
+      {/*<label>*/}
+      {/*  Number of currently held runes*/}
+      {/*  <input*/}
+      {/*    name="heldRunes"*/}
+      {/*    type="number"*/}
+      {/*    className="heldRunes"*/}
+      {/*    onChange={}*/}
+      {/*  />*/}
+      {/*</label>*/}
+
+      {allRunes.map(({ id, label, soulsGiven }) => (
         <div className="flex spaced">
-          Golden Rune ({key}){/*@ts-ignore*/}
-          <button onClick={increment(runes[key], key)}>+</button>
-          {/*@ts-ignore*/}
-          <button onClick={decrease(runes[key], key)}>-</button>
-          {/*@ts-ignore*/}
-          {runeCount[key] > 0 && (
-            // @ts-ignore
-            <span className="fixed nomargin">total: {runeCount[key]}</span>
+          <span>{label}</span>
+          <button onClick={increment(soulsGiven, id)}>+</button>
+          <button disabled={!runeCount[id]} onClick={decrease(soulsGiven, id)}>
+            -
+          </button>
+          {runeCount[id] > 0 && (
+            <span className="fixed nomargin">total: {runeCount[id]}</span>
           )}
         </div>
       ))}
