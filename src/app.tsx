@@ -18,8 +18,8 @@ export default function App() {
   }, 0);
 
   const [runeCount, setCount] = useState<{ [id: number]: number }>({});
-  const [heldRuneCount, setHeldRuneCount] = useState<number>(0);
-  const [targetRuneCount, setTargetRuneCount] = useState<number>(0);
+  const [heldRuneCount, setHeldRuneCount] = useState<Undefinable<number>>();
+  const [targetRuneCount, setTargetRuneCount] = useState<Undefinable<number>>();
 
   const increment = (souls: number, id: number) => () => {
     dispatch(souls);
@@ -46,6 +46,8 @@ export default function App() {
   const reset = () => {
     dispatch("reset");
     setCount({});
+    setHeldRuneCount(0);
+    setTargetRuneCount(0);
   };
 
   return (
@@ -53,12 +55,13 @@ export default function App() {
       <img src={Rune} className="runeimage" alt="image of a golden rune" />
       <div>
         <label>
-          Number of currently held runes
+          Number of Currently Held Runes
           <input
             name="heldRunes"
             type="number"
             className="heldRunes"
             onKeyDown={disallowNonNumbers}
+            value={heldRuneCount}
             onChange={(event) => {
               // @ts-ignore
               if (event?.target?.value) {
@@ -79,6 +82,7 @@ export default function App() {
             type="number"
             className="heldRunes"
             onKeyDown={disallowNonNumbers}
+            value={targetRuneCount}
             onChange={(event) => {
               // @ts-ignore
               if (event?.target?.value) {
