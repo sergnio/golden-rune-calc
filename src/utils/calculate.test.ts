@@ -1,4 +1,5 @@
 import { calculateHighestFirst } from "./calculate";
+import { RuneLabel } from "../constants/runes";
 
 /*
     1: 200,
@@ -16,11 +17,21 @@ import { calculateHighestFirst } from "./calculate";
  */
 
 it("should output", () => {
-  // calculateHighestFirst();
+  const result = calculateHighestFirst({
+    currentCount: 0,
+    desiredAmount: 400,
+    soulsOwned: [{ id: 2 }],
+  });
+  expect(result).toStrictEqual([
+    {
+      id: 2,
+      label: RuneLabel.GoldenRune2,
+      soulsGiven: 400,
+    },
+  ]);
 });
 
 /*
-
 0 souls
 want 400
 have a 2
