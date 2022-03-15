@@ -24,14 +24,30 @@ import { getRuneByName, RuneLabel } from "../constants/runes";
 */
 it("should output", () => {
   const result = calculateHighestFirst(0, 400, [
-    getRuneByName(RuneLabel.GoldenRune2),
+    { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
   ]);
 
   expect(result).toStrictEqual([
     {
+      ...getRuneByName(RuneLabel.GoldenRune2),
+      count: 1,
+    },
+  ]);
+});
+
+it("should do stuff", () => {
+  calculateHighestFirst(100, 10000, [
+    {
+      id: 1,
+      label: RuneLabel.GoldenRune1,
+      soulsGiven: 200,
+      count: 30,
+    },
+    {
       id: 2,
       label: RuneLabel.GoldenRune2,
       soulsGiven: 400,
+      count: 10,
     },
   ]);
 });

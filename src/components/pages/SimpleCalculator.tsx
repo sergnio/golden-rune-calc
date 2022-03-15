@@ -18,7 +18,6 @@ export default () => {
   }, 0);
 
   const [runeCount, setCount] = useState<{ [id: number]: number }>({});
-  const [heldRuneCount, setHeldRuneCount] = useState<Undefinable<number>>();
   const [targetRuneCount, setTargetRuneCount] = useState<Undefinable<number>>();
 
   const increment = (souls: number, id: number) => () => {
@@ -46,34 +45,13 @@ export default () => {
   const reset = () => {
     dispatch("reset");
     setCount({});
-    setHeldRuneCount(0);
     setTargetRuneCount(0);
   };
 
   return (
     <div id="calc" className="App">
       <img src={Rune} className="runeimage" alt="image of a golden rune" />
-      <div>
-        <label>
-          Number of Currently Held Runes
-          <input
-            name="heldRunes"
-            type="number"
-            className="heldRunes"
-            onKeyDown={disallowNonNumbers}
-            value={heldRuneCount}
-            onChange={(event) => {
-              // @ts-ignore
-              if (event?.target?.value) {
-                // @ts-ignore
-                setHeldRuneCount(event.target.value);
-              } else {
-                setHeldRuneCount(0);
-              }
-            }}
-          />
-        </label>
-      </div>
+
       <div>
         <label>
           Desired Target # of Runes
