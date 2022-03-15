@@ -24,7 +24,7 @@ import { getRuneByName, RuneLabel } from "../constants/runes";
 */
 it("should output", () => {
   const result = calculateHighestFirst(0, 400, [
-    getRuneByName(RuneLabel.GoldenRune5),
+    getRuneByName(RuneLabel.GoldenRune2),
   ]);
 
   expect(result).toStrictEqual([
@@ -42,7 +42,6 @@ it("should output", () => {
  * Have no runes
  * Should throw exception
  * */
-
 it("Should throw Error Message", () => {
   const result = [];
 });
