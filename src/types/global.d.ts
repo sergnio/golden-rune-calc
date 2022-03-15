@@ -1,10 +1,7 @@
 type Rune = {
+  id: number;
   soulsGiven: number;
   label: string;
-} & OwnedRune;
-
-type OwnedRune = {
-  id: number;
 };
 
 type Optional<T> = T | null | undefined;

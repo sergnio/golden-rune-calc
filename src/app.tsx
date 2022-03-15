@@ -1,7 +1,16 @@
 import SimpleCalculator from "./components/pages/SimpleCalculator";
-import * as React from "preact/compat";
 import { h } from "preact";
+import Router from "preact-router";
+import ErrorPage from "./components/pages/ErrorPage";
 
 export default () => {
-  return <SimpleCalculator />;
+  return (
+    // @ts-ignore
+    <Router>
+      {/* @ts-ignore - ignore TS complaining */}
+      <SimpleCalculator path="/" />
+      {/* @ts-ignore - ignore TS complaining */}
+      <ErrorPage default />
+    </Router>
+  );
 };

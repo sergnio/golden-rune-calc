@@ -27,3 +27,11 @@ body {
 .link {
   color: #fff;
 }
+
+a {
+  color: #f1a656;
+}
+
+a:visited {
+  color: #b96710;
+}

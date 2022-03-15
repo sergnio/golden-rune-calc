@@ -23,13 +23,11 @@ export enum RuneLabel {
  * Helper function to find a rune by name instead of knowing its id
  * @param rune
  */
-export const getRuneByName = (rune: RuneLabel): { id: number } => {
-  const foundRune = allRunes.find(
+export const getRuneByName = (rune: RuneLabel): Rune =>
+  allRunes.find(
     (foundRune) => foundRune.label === rune
     // cheating since this should always return true if we're using RuneLabel as the param
   ) as Rune;
-  return { id: foundRune.id };
-};
 
 export const allRunes: Rune[] = [
   {
