@@ -56,8 +56,13 @@ it("should do stuff", () => {
  * 0 Souls
  * Want 100 souls
  * Have no runes
- * Should throw exception
+ * should return no runes and a difference of 100
  * */
-it("Should throw Error Message", () => {
-  const result = [];
+it("Should should return no runes and a difference of 100", () => {
+  const startSouls = 0;
+  const neededSouls = 100;
+  const runesOwned: InventoryRune[] = [];
+  expect(() => {
+    calculateHighestFirst(startSouls, neededSouls, runesOwned);
+  }).toEqual();
 });

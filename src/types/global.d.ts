@@ -4,6 +4,10 @@ type Rune = {
   label: string;
 };
 
+type InventoryRune = {
+  count: number; // default 0
+} & Rune;
+
 type Optional<T> = T | null | undefined;
 type Nullable<T> = T | null;
 type Undefinable<T> = T | undefined;
