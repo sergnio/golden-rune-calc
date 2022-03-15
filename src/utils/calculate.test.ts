@@ -1,5 +1,5 @@
 import { calculateHighestFirst } from "./calculate";
-import { RuneLabel } from "../constants/runes";
+import { getRuneByName, RuneLabel } from "../constants/runes";
 
 /*
     1: 200,
@@ -16,12 +16,17 @@ import { RuneLabel } from "../constants/runes";
     12: 7500,
  */
 
+/*
+  0 souls
+  want 400
+  have 1 single Golden Rune (2)
+  should return 1x Golden Rune (2)
+*/
 it("should output", () => {
-  const result = calculateHighestFirst({
-    currentCount: 0,
-    desiredAmount: 400,
-    soulsOwned: [{ id: 2 }],
-  });
+  const result = calculateHighestFirst(0, 400, [
+    getRuneByName(RuneLabel.GoldenRune5),
+  ]);
+
   expect(result).toStrictEqual([
     {
       id: 2,
@@ -32,9 +37,12 @@ it("should output", () => {
 });
 
 /*
-0 souls
-want 400
-have a 2
-should return 1 2
+ * 0 Souls
+ * Want 100 souls
+ * Have no runes
+ * Should throw exception
+ * */
 
- */
+it("Should throw Error Message", () => {
+  const result = [];
+});
