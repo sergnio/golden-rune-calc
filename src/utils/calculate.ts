@@ -3,12 +3,10 @@ export interface CalcReturn {
   difference?: number;
 }
 
-/**
- * Returns the amount of each rune you should consume
- * @param currentCount currently owned # of souls
- * @param desiredAmount how many you're trying to get to
- * @param soulsOwned the actual runes in your inventory that you own and want to use
- */
+// checks if the passed in rune + current count is less than our goal
+const isWithin = (rune: Rune, currentCount: number, desiredAmount: number) =>
+  rune.soulsGiven + currentCount <= desiredAmount;
+
 export const calculateHighestFirst = (
   currentCount: number,
   desiredAmount: number,
@@ -27,64 +25,65 @@ export const calculateHighestFirst = (
 
   future: if currentCount < desired amount && soulsLeft.length === 0, also return the difference
   * */
-  let count = currentCount;
+  let runningCount = currentCount;
   let returnRunes: InventoryRune[] = [];
-  const runes: InventoryRune[] = [...soulsOwned];
+  const updatedRunes: InventoryRune[] = [...soulsOwned];
 
-  while (count < desiredAmount) {
-    if (runes === [])
-      return { runes: returnRunes, difference: desiredAmount - count };
+  while (runningCount < desiredAmount) {
+    let hasAtleastOneRune = updatedRunes.filter((rune) => rune.count > 0);
+    if (!hasAtleastOneRune.length)
+      return { runes: returnRunes, difference: desiredAmount - runningCount };
 
-    let foundRune: Undefinable<InventoryRune>;
+    let highestCountRune: Undefinable<InventoryRune>;
 
-    // checks if the passed in rune + current count is less than our goal
-    let isWithin = (rune: Rune) => rune.soulsGiven + count <= desiredAmount;
-
-    runes.forEach((rune) => {
+    updatedRunes.forEach((rune) => {
       if (
-        // if we haven't yet found a rune and it's within the limits and we have at least 1
-        (!foundRune && isWithin(rune) && rune.count > 0) ||
-        // if we've found a new rune that's greater than our current and it's within the limits and we have at least 1
-        (foundRune &&
-          rune.soulsGiven > foundRune.soulsGiven &&
-          isWithin(rune) &&
+        // if we haven't yet found a rune
+        (!highestCountRune &&
+          // and it's within the limits
+          isWithin(rune, runningCount, desiredAmount) &&
+          // and we have at least 1
+          rune.count > 0) ||
+        // if we haven't yet found a rune
+        (highestCountRune &&
+          // if we've found a new rune that's greater than our current
+          rune.soulsGiven > highestCountRune.soulsGiven &&
+          // and it's within the limits
+          isWithin(rune, runningCount, desiredAmount) &&
+          // and we have at least 1 of those in our inventory
           rune.count > 0)
       ) {
         // then it's our new rune!
-        foundRune = rune;
-        returnRunes = [...returnRunes, { ...foundRune }];
-        count += foundRune.soulsGiven;
-        // foundRune.count--;
+        highestCountRune = rune;
       }
     });
 
     // if we haven't found a rune, that means that means all runes take us over the limit...
     // need to find the smallest one
-    if (!foundRune) {
-      runes.forEach((rn) => {
+    if (!highestCountRune) {
+      updatedRunes.forEach((rn) => {
         if (
           // if we haven't yet found one and we have at least one of this type
-          (!foundRune && rn.count > 0) ||
+          (!highestCountRune && rn.count > 0) ||
           // if we have found one and it gives fewer souls than our current rune use it
           // we already know all runes already go over the max
-          (foundRune && rn.soulsGiven < foundRune.soulsGiven && rn.count > 0)
+          (highestCountRune &&
+            rn.soulsGiven < highestCountRune.soulsGiven &&
+            rn.count > 0)
         )
-          foundRune = rn;
+          highestCountRune = rn;
       });
     }
     // remove a rune of that count
-    if (foundRune) foundRune.count -= 1;
+    if (highestCountRune) {
+      returnRunes = [...returnRunes, { ...highestCountRune }];
+      runningCount += highestCountRune.soulsGiven;
+      highestCountRune.count -= 1;
+    }
   }
+
   return {
     runes: returnRunes,
-    difference: desiredAmount - count,
+    difference: desiredAmount - runningCount,
   };
-
-  // return [
-  //   {
-  //     id: 2,
-  //     label: RuneLabel.GoldenRune2,
-  //     soulsGiven: 400,
-  //   },
-  // ];
 };

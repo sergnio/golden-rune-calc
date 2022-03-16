@@ -22,7 +22,7 @@ import { getRuneByName, RuneLabel } from "../constants/runes";
   have 1 single Golden Rune (2)
   should return 1x Golden Rune (2)
 */
-it("given 1 rune that equals the value, we should return that rune", () => {
+test("given 1 rune that equals the value, we should return that rune", () => {
   const result = calculateHighestFirst(0, 400, [
     { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
   ]);
@@ -39,23 +39,67 @@ it("given 1 rune that equals the value, we should return that rune", () => {
   expect(result).toStrictEqual(expected);
 });
 
-it("should do stuff", () => {
-  calculateHighestFirst(100, 10000, [
-    {
-      id: 1,
-      label: RuneLabel.GoldenRune1,
-      soulsGiven: 200,
-      count: 30,
-    },
-    {
-      id: 2,
-      label: RuneLabel.GoldenRune2,
-      soulsGiven: 400,
-      count: 10,
-    },
+test("given 1 rune, and a higher desired amount, we should return the difference", () => {
+  const result = calculateHighestFirst(0, 800, [
+    { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
   ]);
+
+  const expected = {
+    runes: [
+      {
+        ...getRuneByName(RuneLabel.GoldenRune2),
+        count: 1,
+      },
+    ],
+    difference: 400,
+  };
+  expect(result).toStrictEqual(expected);
 });
 
+test(
+  "given 2 runes with one that is equal to our desired amount, " +
+    "we should return the biggest rune",
+  () => {
+    const result = calculateHighestFirst(0, 800, [
+      { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
+      { ...getRuneByName(RuneLabel.GoldenRune3), count: 1 },
+    ]);
+
+    const expected = {
+      runes: [
+        {
+          ...getRuneByName(RuneLabel.GoldenRune3),
+          count: 1,
+        },
+      ],
+      difference: 0,
+    };
+    expect(result).toStrictEqual(expected);
+  }
+);
+
+// todo - fix
+test.skip("given 2 runes that over shoot our desired amount, we should return the negative difference", () => {
+  const result = calculateHighestFirst(0, 1000, [
+    { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
+    { ...getRuneByName(RuneLabel.GoldenRune3), count: 1 },
+  ]);
+
+  const expected = {
+    runes: [
+      {
+        ...getRuneByName(RuneLabel.GoldenRune2),
+        count: 1,
+      },
+      {
+        ...getRuneByName(RuneLabel.GoldenRune3),
+        count: 1,
+      },
+    ],
+    difference: -200,
+  };
+  expect(result).toStrictEqual(expected);
+});
 /*
  * 0 Souls
  * Want 100 souls
