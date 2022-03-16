@@ -1,6 +1,4 @@
-import { RuneLabel } from "../constants/runes";
-
-interface CalcReturn {
+export interface CalcReturn {
   runes: InventoryRune[];
   difference?: number;
 }
@@ -42,18 +40,22 @@ export const calculateHighestFirst = (
     // checks if the passed in rune + current count is less than our goal
     let isWithin = (rune: Rune) => rune.soulsGiven + count <= desiredAmount;
 
-    runes.forEach((rn) => {
+    runes.forEach((rune) => {
       if (
         // if we haven't yet found a rune and it's within the limits and we have at least 1
-        (!foundRune && isWithin(rn) && rn.count > 0) ||
+        (!foundRune && isWithin(rune) && rune.count > 0) ||
         // if we've found a new rune that's greater than our current and it's within the limits and we have at least 1
         (foundRune &&
-          rn.soulsGiven > foundRune.soulsGiven &&
-          isWithin(rn) &&
-          rn.count > 0)
-      )
+          rune.soulsGiven > foundRune.soulsGiven &&
+          isWithin(rune) &&
+          rune.count > 0)
+      ) {
         // then it's our new rune!
-        foundRune = rn;
+        foundRune = rune;
+        returnRunes = [...returnRunes, { ...foundRune }];
+        count += foundRune.soulsGiven;
+        // foundRune.count--;
+      }
     });
 
     // if we haven't found a rune, that means that means all runes take us over the limit...

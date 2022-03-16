@@ -22,17 +22,21 @@ import { getRuneByName, RuneLabel } from "../constants/runes";
   have 1 single Golden Rune (2)
   should return 1x Golden Rune (2)
 */
-it("should output", () => {
+it("given 1 rune that equals the value, we should return that rune", () => {
   const result = calculateHighestFirst(0, 400, [
     { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
   ]);
 
-  expect(result).toStrictEqual([
-    {
-      ...getRuneByName(RuneLabel.GoldenRune2),
-      count: 1,
-    },
-  ]);
+  const expected = {
+    runes: [
+      {
+        ...getRuneByName(RuneLabel.GoldenRune2),
+        count: 1,
+      },
+    ],
+    difference: 0,
+  };
+  expect(result).toStrictEqual(expected);
 });
 
 it("should do stuff", () => {
@@ -59,10 +63,8 @@ it("should do stuff", () => {
  * should return no runes and a difference of 100
  * */
 it("Should should return no runes and a difference of 100", () => {
-  const startSouls = 0;
-  const neededSouls = 100;
-  const runesOwned: InventoryRune[] = [];
-  expect(() => {
-    calculateHighestFirst(startSouls, neededSouls, runesOwned);
-  }).toEqual();
+  expect(calculateHighestFirst(0, 100, [])).toEqual({
+    runes: [],
+    difference: 100,
+  });
 });
