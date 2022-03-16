@@ -78,7 +78,6 @@ test(
   }
 );
 
-// todo - fix
 test("given 2 runes that over shoot our desired amount, we should return the negative difference", () => {
   const result = calculateHighestFirst(0, 1000, [
     { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
