@@ -79,7 +79,7 @@ test(
 );
 
 // todo - fix
-test.skip("given 2 runes that over shoot our desired amount, we should return the negative difference", () => {
+test("given 2 runes that over shoot our desired amount, we should return the negative difference", () => {
   const result = calculateHighestFirst(0, 1000, [
     { ...getRuneByName(RuneLabel.GoldenRune2), count: 1 },
     { ...getRuneByName(RuneLabel.GoldenRune3), count: 1 },
@@ -88,16 +88,19 @@ test.skip("given 2 runes that over shoot our desired amount, we should return th
   const expected = {
     runes: [
       {
-        ...getRuneByName(RuneLabel.GoldenRune2),
+        ...getRuneByName(RuneLabel.GoldenRune3),
         count: 1,
       },
       {
-        ...getRuneByName(RuneLabel.GoldenRune3),
+        ...getRuneByName(RuneLabel.GoldenRune2),
         count: 1,
       },
     ],
     difference: -200,
   };
+  console.log("result", result);
+  console.log("expected", expected);
+
   expect(result).toStrictEqual(expected);
 });
 /*
